@@ -45,14 +45,14 @@ export default function TabNavigator() {
         },
         tabBarIcon: ({ color, size }) => {
           let iconName = 'home';
-          if (route.name === 'MinhasApostas') iconName = 'list';
+          if (route.name === 'Apostas') iconName = 'list';
           if (route.name === 'Perfil') iconName = 'person';
           return <Ionicons name={iconName as any} size={size} color={color} />;
         },
       })}
     >
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="MinhasApostas" component={MyBetsScreen} />
+      <Tab.Screen name="Apostas" component={MyBetsScreen} />
       <Tab.Screen name="Perfil" component={ProfileStack} />
     </Tab.Navigator>
   );

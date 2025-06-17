@@ -1,4 +1,3 @@
-// data/matches.ts
 export const matches = [
   {
     id: '1',

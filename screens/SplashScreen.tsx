@@ -24,7 +24,7 @@ export const SplashScreen = () => {
     ).start();
 
     const timeout = setTimeout(() => {
-      navigation.replace('LoginScreen'); // 👈 redireciona para o login
+      navigation.replace('LoginScreen'); 
     }, 2000);
 
     return () => clearTimeout(timeout);

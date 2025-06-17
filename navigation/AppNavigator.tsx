@@ -20,6 +20,8 @@ import ContatoScreen from '../screens/ContatoScreen';
 import ChatBotScreen from '../screens/ChatBotScreen';
 import TabNavigator from './TabNavigator';
 import { SplashScreen } from '../screens/SplashScreen';
+import ComparePage from '../screens/ComparePage';
+import InvestmentScreen from '../screens/InvestmentScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +45,8 @@ export default function AppNavigator() {
             <Stack.Screen name="MainTabs" component={TabNavigator} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="NewBet" component={NewBetScreen} />
+            <Stack.Screen name="ComparePage" component={ComparePage} />
+            <Stack.Screen name="Investment" component={InvestmentScreen} />
             <Stack.Screen name="PaymentSplash" component={PaymentSplashScreen} />
             <Stack.Screen name="PaymentOptions" component={PaymentOptionsScreen} />
             <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />

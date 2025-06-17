@@ -1,4 +1,3 @@
-// ✅ PaymentSuccessScreen.tsx atualizado
 import React, { useEffect } from 'react';
 import {
   View,
@@ -15,10 +14,16 @@ const PaymentSuccessScreen = ({ navigation, route }: any) => {
   const { match, amount, selectedOption, paymentMethod, installments } = route.params;
 
   const parsedAmount = parseFloat(amount);
+  const isInvalidBet = !match || !match?.id || !selectedOption;
+
+  const rate = 0.013;
+  const totalAmount =
+    paymentMethod === 'credito'
+      ? parsedAmount * Math.pow(1 + rate, installments || 1)
+      : parsedAmount;
 
   const getInstallmentDisplay = () => {
-    if (!installments || installments === 1) return null;
-    const rate = 0.013;
+    if (!installments) return null;
     const total = parsedAmount * Math.pow(1 + rate, installments);
     const value = total / installments;
     return `${installments}x R$ ${value.toFixed(2)}`;
@@ -37,8 +42,8 @@ const PaymentSuccessScreen = ({ navigation, route }: any) => {
 
     const newBet = {
       id: uuid.v4(),
-      matchId: match?.id,
-      match: match?.date,
+      matchId: match.id,
+      match: match.date,
       selectedOption,
       amount: adjustedAmount.toFixed(2),
       paymentMethod,
@@ -58,28 +63,35 @@ const PaymentSuccessScreen = ({ navigation, route }: any) => {
   };
 
   useEffect(() => {
-    saveBetToHistory();
+    if (!isInvalidBet) {
+      saveBetToHistory();
+    }
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Transferência</Text>
-        <Text style={styles.amount}>R$ {parsedAmount.toFixed(2)}</Text>
+        <Text style={styles.title}>Comprovante</Text>
 
-        {installments && installments > 1 && (
+        <Text style={styles.amount}>R$ {totalAmount.toFixed(2)}</Text>
+
+        {paymentMethod === 'credito' && installments && (
           <Text style={styles.installment}>{getInstallmentDisplay()}</Text>
         )}
 
-        <View style={styles.detailRow}>
-          <Text style={styles.label}>Jogo:</Text>
-          <Text style={styles.value}>{match?.date}</Text>
-        </View>
+        {!isInvalidBet && (
+          <>
+            <View style={styles.detailRow}>
+              <Text style={styles.label}>Jogo:</Text>
+              <Text style={styles.value}>{match?.date}</Text>
+            </View>
 
-        <View style={styles.detailRow}>
-          <Text style={styles.label}>Aposta:</Text>
-          <Text style={styles.value}>{selectedOption}</Text>
-        </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.label}>Aposta:</Text>
+              <Text style={styles.value}>{selectedOption}</Text>
+            </View>
+          </>
+        )}
 
         <View style={styles.detailRow}>
           <Text style={styles.label}>Forma:</Text>
@@ -89,8 +101,8 @@ const PaymentSuccessScreen = ({ navigation, route }: any) => {
         </View>
 
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Parcelas:</Text>
-          <Text style={styles.value}>{installments ? installments : '1'}</Text>
+          <Text style={styles.label}>Data:</Text>
+          <Text style={styles.value}>{new Date().toLocaleDateString('pt-BR')}</Text>
         </View>
       </ScrollView>
 

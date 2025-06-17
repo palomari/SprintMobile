@@ -1,12 +1,9 @@
-// src/context/AuthContext.tsx
 import React, {
   createContext,
   useState,
   ReactNode,
-  useContext,
-  useEffect,
+  useContext
 } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type AuthContextType = {
   user: string | null;
@@ -21,23 +18,12 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
 
-  // 🔐 Recupera usuário salvo ao iniciar
-  useEffect(() => {
-    const loadUser = async () => {
-      const savedUser = await AsyncStorage.getItem('user');
-      if (savedUser) setUser(savedUser);
-    };
-    loadUser();
-  }, []);
-
-  const login = async (email: string) => {
+  const login = (email: string) => {
     setUser(email);
-    await AsyncStorage.setItem('user', email);
   };
 
-  const logout = async () => {
+  const logout = () => {
     setUser(null);
-    await AsyncStorage.removeItem('user');
   };
 
   return (

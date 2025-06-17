@@ -44,7 +44,7 @@ export default function LoginScreen() {
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.title}>LUDARI</Text>
+        <Text style={styles.title}>LOGIN</Text>
 
         <TextInput
           placeholder="E-mail"

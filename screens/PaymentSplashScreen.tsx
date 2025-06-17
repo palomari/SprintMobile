@@ -6,7 +6,7 @@ const PaymentSplashScreen = ({ navigation, route }: any) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.replace('PaymentOptions', {
+      navigation.replace('ComparePage', {
         match,
         amount,
         selectedOption,
@@ -19,7 +19,7 @@ const PaymentSplashScreen = ({ navigation, route }: any) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/xp.jpg')} // substitua pelo nome correto da imagem salva
+        source={require('../assets/xp.jpg')} 
         style={styles.logo}
         resizeMode="contain"
       />
@@ -32,7 +32,7 @@ export default PaymentSplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff', // fundo branco
+    backgroundColor: '#fff', 
     justifyContent: 'center',
     alignItems: 'center',
   },
