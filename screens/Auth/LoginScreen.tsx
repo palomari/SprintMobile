@@ -20,13 +20,13 @@ export default function LoginScreen() {
   const [senha, setSenha] = useState('');
 
   const handleEntrar = () => {
-    if (email && senha) {
-      login(email);
-      navigation.replace('Home');
-    } else {
-      alert('Preencha e-mail e senha');
-    }
-  };
+  if (email && senha) {
+    login(email);
+    navigation.replace('Home');
+  } else {
+    alert('Preencha e-mail e senha');
+  }
+};
 
   return (
     <ScrollView
@@ -44,7 +44,11 @@ export default function LoginScreen() {
           style={styles.logo}
           resizeMode="contain"
         />
+<<<<<<< HEAD
         <Text style={styles.title}>LOGIN</Text>
+=======
+        <Text style={styles.title}>Login</Text>
+>>>>>>> eb44e1fa93b025aa9fca562687043e51073c8252
 
         <TextInput
           placeholder="E-mail"
