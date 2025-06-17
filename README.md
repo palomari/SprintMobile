@@ -1,53 +1,66 @@
-# 🎰 App de Apostas Interativas
+# 🎯 App de Apostas & Investimentos
 
-Bem-vindo ao um aplicativo mobile gamificado e acessível onde você pode explorar apostas esportivas de forma intuitiva, estilizada e educativa.
+Aplicativo mobile interativo e educativo desenvolvido para o desafio da disciplina **Mobile Development XP**.
 
-Construído com **React Native + Expo**, o app foi desenvolvido como parte do desafio da disciplina **Mobile Development XP**, focando em **experiência de usuário**, **design responsivo** e **funcionalidades reais de um MVP**.
-
----
-
-## 🧩 Funcionalidades Principais
-
-✨ **Tela de Introdução Animada**  
-💡 Apresentação gamificada com orientação e identidade visual coesa.
-
-👤 **Login com redes sociais**  
-Apple, Google, Microsoft e acesso via email/senha.
-
-🏟️ **Home com jogos ao vivo**  
-Aposte em partidas por ligas (CBF, NBA, NHL) com visual profissional.
-
-💵 **Fluxo completo de apostas**  
-Selecione o vencedor, digite o valor, escolha forma de pagamento (débito/crédito), simule parcelas e confirme.
-
-📊 **Histórico de apostas**  
-Veja se ganhou, perdeu ou não participou com placar e status simulados.
-
-🛠 **Configurações e perfil**  
-Gerencie idioma, notificações e logout com interface moderna.
-
-💬 **Suporte & Chatbot**  
-Contate suporte via email, FAQ ou interaja com nosso mini chatbot.
+Feito com **React Native + Expo**, oferece uma experiência gamificada entre **apostar** ou **investir**, com foco em acessibilidade, usabilidade e identidade visual moderna.
 
 ---
 
-## 🎨 Tecnologias
+## 🧩 Funcionalidades
 
-- ⚛️ React Native + Expo
-- 💬 React Navigation
-- 🧠 AsyncStorage (persistência de histórico)
-- 🎯 Arquitetura organizada com separação de responsabilidades
+### 🚀 Introdução
+- 3 telas interativas com orientação visual
+- Splash explicativo (scroll)
+
+### 🔐 Autenticação
+- Login via e-mail, Apple, Google ou Microsoft
+
+### 🏟️ Apostas Esportivas
+- Partidas por liga (CBF, NBA, NHL)
+- Escolha vencedor, valor e forma de pagamento (com simulação de crédito)
+- Registro com status e placar fictício
+
+### 💼 Investimentos
+- 4 opções: Renda Fixa, FIIS, CDB, Ações
+- Rendimento visual por gráfico
+- **Não salvo no histórico de apostas**
+
+### 🧾 Comprovante
+- Estilo recibo
+- Mostra valor, forma e parcelas (crédito)
+
+### 📊 Histórico
+- Apenas apostas
+- Mostra placar, status, valor ganho/perdido
+
+### 👤 Perfil e Suporte
+- Idioma, notificações, última atividade
+- Chatbot e canais de contato
 
 ---
 
-## 👥 Equipe de Desenvolvimento
+## 🛠 Tecnologias
 
-| Nome                      | RM       |
-|---------------------------|----------|
-| Leticia Fontana Baptista | 550289   |
-| Julia Palomari           | 551910   |
-| Vinicius Sobreira Borges | 97767    |
-| Julia Ortiz              | 550204   |
-| Guilherme Catelli Bichaco| 97989    |
+- ⚛️ React Native (Expo)
+- 📱 React Navigation
+- 💾 AsyncStorage
+- 🎨 StyleSheet
+- 🧠 Context API
+- 🔧 TypeScript
+- 🎞️ Lottie (via URL)
 
 ---
+
+## 👥 Equipe
+
+| Nome                          | RM       |
+|-------------------------------|----------|
+| Leticia Fontana Baptista      | 550289   |
+| Julia Palomari                | 551910   |
+| Vinicius Sobreira Borges      | 97767    |
+| Julia Ortiz                   | 550204   |
+| Guilherme Catelli Bichaco     | 97989    |
+
+---
+
+> 📱 Projeto acadêmico — XP Educação | Mobile Development
