@@ -1,47 +1,66 @@
 import React, {
   createContext,
   useState,
-  ReactNode,
   useContext,
   useEffect,
+  ReactNode,
 } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from '../services/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { loginUser, logoutUser } from '../services/users.service';
 
 type AuthContextType = {
-  user: string | null;
-  login: (email: string) => void;
-  logout: () => void;
+  user: User | null;      
+  uid: string | null;     
+  loading: boolean;       
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
-
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<string | null>(null);
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (fbUser) => {
+      setUser(fbUser);
+      setLoading(false);
+    });
+    return () => unsub();
+  }, []);
 
-  // useEffect(() => {
-  //   const loadUser = async () => {
-  //     const savedUser = await AsyncStorage.getItem('user');
-  //     if (savedUser) setUser(savedUser);
-  //   };
-  //   loadUser();
-  // }, []);
-
-  const login = async (email: string) => {
-    setUser(email);
-    await AsyncStorage.setItem('user', email);
+  const login = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      await loginUser(email, password); 
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = async () => {
-    setUser(null);
-    await AsyncStorage.removeItem('user');
+    setLoading(true);
+    try {
+      await logoutUser();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        uid: user?.uid ?? null,
+        loading,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
-};
+}

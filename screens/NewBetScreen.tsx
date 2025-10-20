@@ -20,11 +20,8 @@ const NewBetScreen = ({ route, navigation }: any) => {
       Alert.alert('Atenção', 'Preencha todos os campos!');
       return;
     }
-    navigation.navigate('PaymentSplash', {
-      match,
-      amount,
-      selectedOption,
-    });
+    
+    navigation.navigate('PaymentSplash', { match, amount, selectedOption });
   };
 
   return (

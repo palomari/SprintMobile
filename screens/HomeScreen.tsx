@@ -90,7 +90,6 @@ const HomeScreen = () => {
                     Apostas encerram ás {match.closeTime}
                   </Text>
                   <TouchableOpacity
-                    style={styles.betButton}
                     onPress={() => navigation.navigate('NewBet', { match })}
                   >
                     <Text style={styles.betText}>Apostar</Text>

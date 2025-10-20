@@ -1,31 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  View, Text, Image, StyleSheet, TouchableOpacity,
+  TextInput, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext } from '../../context/AuthContext';
+import { loginUser, mapFirebaseError } from '../../services/users.service';
 
 export default function LoginScreen() {
   const navigation = useNavigation<any>();
-  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleEntrar = () => {
-    if (email && senha) {
-      login(email);
-      navigation.replace('Home');
-    } else {
-      alert('Preencha e-mail e senha');
+  const handleEntrar = async () => {
+    setErrorMsg('');
+
+    if (!email || !senha) {
+      setErrorMsg('Preencha e-mail e senha.');
+      return;
     }
+
+    try {
+      setLoading(true);
+      await loginUser(email.trim(), senha);
+    } catch (e: any) {
+      const msg = mapFirebaseError(e?.code, e?.message || 'Não foi possível autenticar.');
+      setErrorMsg(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoToRegister = () => {
+    navigation.navigate('Register');
   };
 
   return (
@@ -64,30 +72,27 @@ export default function LoginScreen() {
           style={styles.input}
         />
 
-        <TouchableOpacity style={styles.loginBtn} onPress={handleEntrar}>
-          <Text style={styles.loginText}>Entrar</Text>
+        {/* mensagem de erro (nova) */}
+        {errorMsg ? <Text style={styles.errorText}>{errorMsg}</Text> : null}
+
+        <TouchableOpacity
+          style={[styles.loginBtn, loading && { opacity: 0.7 }]}
+          onPress={handleEntrar}
+          disabled={loading}
+        >
+          {loading
+            ? <ActivityIndicator color="#000" />
+            : <Text style={styles.loginText}>Entrar</Text>
+          }
         </TouchableOpacity>
 
-        <View style={styles.dividerContainer}>
-          <View style={styles.line} />
-          <Text style={styles.dividerText}>ou</Text>
-          <View style={styles.line} />
+        {/* link para cadastro */}
+        <View style={{ width: '100%', alignItems: 'center', marginBottom: 16 }}>
+          <Text style={{ color: '#aaa', marginBottom: 8 }}>Não tem conta?</Text>
+          <TouchableOpacity style={styles.createBtn} onPress={handleGoToRegister}>
+            <Text style={styles.createText}>Criar conta</Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.appleBtn}>
-          <Image source={require('../../assets/apple.png')} style={styles.icon} />
-          <Text style={styles.appleText}>Continue with Apple</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}>
-          <Image source={require('../../assets/google.png')} style={styles.icon} />
-          <Text style={styles.text}>Continue with Google</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}>
-          <Image source={require('../../assets/microsoft.png')} style={styles.icon} />
-          <Text style={styles.text}>Continue  Microsoft</Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     </ScrollView>
   );
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     paddingTop: 80,
     paddingBottom: 40,
   },
@@ -107,10 +112,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 48,
+    fontSize: 40,
     fontFamily: 'BebasNeue_400Regular',
     color: '#F7D269',
     marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#1c1c1c',
@@ -118,7 +124,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 14,
     borderRadius: 12,
-    marginBottom: 12,
+    marginBottom: 14,
     fontSize: 16,
   },
   loginBtn: {
@@ -127,63 +133,30 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     width: '100%',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 12,
   },
   loginText: {
     color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
   },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  createBtn: {
+    borderColor: '#F7D269',
+    borderWidth: 1,
+    paddingVertical: 12,
+    borderRadius: 12,
     width: '100%',
-    marginBottom: 20,
+    alignItems: 'center',
   },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#555',
+  createText: {
+    color: '#F7D269',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
-  dividerText: {
-    color: '#aaa',
-    marginHorizontal: 12,
+  errorText: {
+    color: '#ff7070',
+    textAlign: 'center',
+    marginBottom: 10,
     fontSize: 14,
-  },
-  appleBtn: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    padding: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    width: '100%',
-    marginBottom: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  appleText: {
-    color: '#000',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  button: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    padding: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    width: '100%',
-    marginBottom: 12,
-    alignItems: 'center',
-  },
-  icon: {
-    width: 22,
-    height: 22,
-    marginRight: 12,
-  },
-  text: {
-    color: '#000',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

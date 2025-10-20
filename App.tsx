@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { useFonts, Kavoon_400Regular } from '@expo-google-fonts/kavoon';
 import { ActivityIndicator, View } from 'react-native';
 import { BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
+import RootNavigator from './navigation';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,7 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <AppNavigator />
+      <RootNavigator />
     </AuthProvider>
   );
 }

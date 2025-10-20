@@ -107,7 +107,7 @@ const PaymentSuccessScreen = ({ navigation, route }: any) => {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MainTabs')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Apostas')}>
           <Text style={styles.buttonText}>Voltar ao app</Text>
         </TouchableOpacity>
       </View>
