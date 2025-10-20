@@ -1,53 +1,69 @@
-# 🎯 App de Apostas & Investimentos
+# 🎯 App de Apostas & Investimentos — SprintMobile
 
-Aplicativo mobile interativo e educativo desenvolvido para o desafio da disciplina **Mobile Development XP**.
+Aplicativo mobile interativo e educativo desenvolvido para o desafio da disciplina **Mobile Development & IoT (XP Educação)**.
 
-Feito com **React Native + Expo**, oferece uma experiência gamificada entre **apostar** ou **investir**, com foco em acessibilidade, usabilidade e identidade visual moderna.
+Criado com **React Native + Expo**, o app proporciona uma experiência gamificada entre **apostar** ou **investir**, com foco em **acessibilidade, usabilidade e identidade visual moderna**.  
+Toda a autenticação e persistência são realizadas via **Firebase Authentication** e **AsyncStorage**.
+
 
 ---
 
-## 🧩 Funcionalidades
+## 🧩 Funcionalidades Principais
 
 ### 🚀 Introdução
-- 3 telas interativas com orientação visual
-- Splash explicativo (scroll)
+- Três telas de **onboarding** (`IntroSports`, `IntroPrizes`, `IntroDeposit`)
+- Exibidas **apenas na primeira execução**, controladas via AsyncStorage
+- Splash inicial informativo e orientado por rolagem
 
 ### 🔐 Autenticação
-- Login via e-mail, Apple, Google ou Microsoft
+- Login e cadastro via **e-mail e senha**
+- Autenticação segura com **Firebase Auth**
+- Persistência local com **AsyncStorage**
+- Mensagens de erro e sucesso com feedback visual claro
+- Logout e exclusão de conta com **reauthenticação**
 
 ### 🏟️ Apostas Esportivas
-- Partidas por liga (CBF, NBA, NHL)
-- Escolha vencedor, valor e forma de pagamento (com simulação de crédito)
-- Registro com status e placar fictício
+- Listagem de partidas por liga (CBF, NBA, NHL)
+- Seleção de vencedor, valor e forma de pagamento
+- Registro de apostas com status e placar fictício
+- Histórico de apostas com status e resultado simulados
 
 ### 💼 Investimentos
-- 4 opções: Renda Fixa, FIIS, CDB, Ações
-- Rendimento visual por gráfico
-- **Não salvo no histórico de apostas**
+- Quatro modalidades: **Renda Fixa, FIIs, CDB e Ações**
+- Rendimento visualizado em **gráficos interativos**
+- Operações simuladas (não salvas no histórico de apostas)
 
-### 🧾 Comprovante
-- Estilo recibo
-- Mostra valor, forma e parcelas (crédito)
+### 🧾 Pagamentos e Comprovante
+- Simulação completa de pagamento
+- Tela splash + opções de pagamento + tela de sucesso
+- Exibição de **comprovante estilo recibo** com valor, método e parcelas
 
 ### 📊 Histórico
-- Apenas apostas
-- Mostra placar, status, valor ganho/perdido
+- Exibe apenas **apostas**
+- Mostra placar, status, valor ganho/perdido e data
+- Permite rastrear a atividade do usuário
 
 ### 👤 Perfil e Suporte
-- Idioma, notificações, última atividade
-- Chatbot e canais de contato
+- Exibe nome, e-mail e última atividade
+- Permite **editar dados pessoais** (nome, telefone, endereço e senha)
+- Opção de **encerrar conta**
+- Alternar **idioma** e **notificações**
+- Acesso a **Chatbot** e **Tela de Contato**
 
 ---
 
-## 🛠 Tecnologias
+## 🛠 Tecnologias Utilizadas
 
-- ⚛️ React Native (Expo)
-- 📱 React Navigation
-- 💾 AsyncStorage
-- 🎨 StyleSheet
-- 🧠 Context API
-- 🔧 TypeScript
-- 🎞️ Lottie (via URL)
+| Categoria | Tecnologias |
+|------------|-------------|
+| Framework | ⚛️ **React Native (Expo SDK 53)** |
+| Navegação | 📱 **React Navigation v6** (Stack + Bottom Tabs) |
+| Armazenamento Local | 💾 **AsyncStorage** |
+| Backend | 🔥 **Firebase Authentication + Firestore** |
+| Estado Global | 🧠 **Context API (AuthContext)** |
+| Tipagem | 🔧 **TypeScript** |
+| UI e Estilo | 🎨 **StyleSheet** |
+| Animações | 🎞️ **Lottie (via URL)** |
 
 ---
 
